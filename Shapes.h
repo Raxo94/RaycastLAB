@@ -162,3 +162,62 @@ public:
 	MOBB(Vec b, Vec b1, Vec b2, Vec b3, float Hu, float Hv, float Hw, Color _color);
 	MOBB(Vec b, float Hu, float Hv, float Hw, Color _color);
 };
+
+//################################################# My Classes
+
+class OPlane : public Shape
+{
+	Vec		n;
+	float	d;
+public:
+	void test(Ray& ray, HitData& hit);
+	Vec normal(Vec &point);
+	OPlane(Vec normal, float _d, Color color);
+};
+
+class OSphere : public Shape
+{
+	Vec center;
+	float radius;
+	float radius2;
+public:
+	void test(Ray& ray, HitData& hit);
+	Vec normal(Vec &point);
+	OSphere(Vec _center, float _radius, Color _color);
+};
+
+class OTriangle : public Shape
+{
+	Vec p1, p2, p3, nor;
+	Vec edge0, edge1;
+public:
+	void test(Ray& ray, HitData& hit);
+	Vec normal(Vec &point) { return nor; }
+	OTriangle(Vec _p1, Vec _p2, Vec _p3, Color _color);
+
+};
+
+class OOBB : public Shape
+{
+public:
+	Vec Bcenter;
+	Vec Bu;
+	Vec Bv;
+	Vec Bw;
+
+	Vec Pu, Puo;
+	Vec Pv, Pvo;
+	Vec Pw, Pwo;
+
+	float halfBu;
+	float halfBv;
+	float halfBw;
+
+	void test(Ray& ray, HitData& hit);
+	Vec normal(Vec& point);
+
+	// Center point, lenght U vector, length V vector, length W vector, color
+
+	OOBB(Vec b, Vec b1, Vec b2, Vec b3, float Hu, float Hv, float Hw, Color _color);
+	OOBB(Vec b, float Hu, float Hv, float Hw, Color _color);
+};
